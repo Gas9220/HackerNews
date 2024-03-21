@@ -20,6 +20,9 @@ struct NewsListView: View {
                 }
             }
             .navigationTitle("Hacker News")
+            .navigationDestination(for: Story.self) { story in
+                StoryDetailView(story: story)
+            }
             .refreshable {
                 vm.task?.cancel()
                 vm.task = Task {
