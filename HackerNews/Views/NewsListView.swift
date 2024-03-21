@@ -2,14 +2,42 @@
 //  NewsListView.swift
 //  HackerNews
 //
-//  Created by Gaspare Monte on 21/03/24.
+//  Created by Gaspare Monte on 19/03/24.
 //
 
 import SwiftUI
 
 struct NewsListView: View {
+    @StateObject var vm: ViewModel = ViewModel()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                ForEach(vm.stories.sorted(), id: \.self) { story in
+                    NavigationLink(value: story) {
+                        Text(story.by)
+                    }
+                }
+            }
+            .navigationTitle("Hacker News")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("News Count: \(vm.stories.count)")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Picker("selection", selection: $vm.endPoint) {
+                            ForEach(Endpoint.allCases, id: \.self) { endpoint in
+                                Text(endpoint.description)
+                                    .tag(endpoint)
+                            }
+                        }
+                    } label: {
+                        Label("News type", systemImage: "list.bullet")
+                    }
+                }
+            }
+        }
     }
 }
 
