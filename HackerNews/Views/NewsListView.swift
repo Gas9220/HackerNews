@@ -26,6 +26,13 @@ struct NewsListView: View {
                     await vm.fetchStories()
                 }
             }
+            .onChange(of: vm.endPoint) {
+                vm.stories = []
+                vm.task?.cancel()
+                vm.task = Task {
+                    await vm.fetchStories()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("News Count: \(vm.stories.count)")
