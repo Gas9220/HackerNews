@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct HackerNewsApp: App {
+    @StateObject private var favoritesStore = FavoritesStore()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(favoritesStore)
         }
     }
 }
