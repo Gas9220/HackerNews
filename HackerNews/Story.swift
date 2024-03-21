@@ -1,6 +1,6 @@
 //
 //  Story.swift
-//  HackerNewsShadow
+//  HackerNews
 //
 //  Created by Gaspare Monte on 19/03/24.
 //
