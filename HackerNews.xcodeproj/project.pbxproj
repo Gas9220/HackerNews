@@ -54,6 +54,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B145B022BAC483400215C4A /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				6B145AFE2BAC371C00215C4A /* FavoritesListView.swift */,
+				6B145B002BAC469700215C4A /* FavoriteListViewVM.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		6B145B032BAC484200215C4A /* Stories */ = {
+			isa = PBXGroup;
+			children = (
+				6B145AF82BAC358500215C4A /* StoryRowView.swift */,
+				6B145AFA2BAC35D100215C4A /* StoryDetailView.swift */,
+			);
+			path = Stories;
+			sourceTree = "<group>";
+		};
 		6B487AA32BA9E3550012656E = {
 			isa = PBXGroup;
 			children = (
@@ -116,10 +134,8 @@
 				6BBFC4A92BAC317500C17631 /* ContentView.swift */,
 				6B145AF42BAC334700215C4A /* NewsListView.swift */,
 				6B145AF62BAC336300215C4A /* NewsListViewVM.swift */,
-				6B145AF82BAC358500215C4A /* StoryRowView.swift */,
-				6B145AFA2BAC35D100215C4A /* StoryDetailView.swift */,
-				6B145AFE2BAC371C00215C4A /* FavoritesListView.swift */,
-				6B145B002BAC469700215C4A /* FavoriteListViewVM.swift */,
+				6B145B032BAC484200215C4A /* Stories */,
+				6B145B022BAC483400215C4A /* Favorites */,
 			);
 			path = Views;
 			sourceTree = "<group>";
