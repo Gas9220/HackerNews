@@ -9,15 +9,12 @@ import SwiftUI
 
 struct FavoritesListView: View {
     @EnvironmentObject var favoritesStore: FavoritesStore
-
-    @State private var favoriteStories: [Story] = []
-    @State private var isFirstLaunch: Bool = true
-    @State private var path = NavigationPath()
+    @StateObject var vm: ViewModel = ViewModel()
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $vm.path) {
             Group {
-                if favoriteStories.isEmpty {
+                if vm.favoriteStories.isEmpty {
                     ContentUnavailableView(
                         "No favorites",
                         systemImage: "star.fill",
@@ -25,7 +22,7 @@ struct FavoritesListView: View {
                     )
                 } else {
                     List {
-                        ForEach(favoriteStories) { story in
+                        ForEach(vm.favoriteStories) { story in
                             NavigationLink(value: story) {
                                 StoryRowView(story: story)
                             }
@@ -38,38 +35,22 @@ struct FavoritesListView: View {
             }
             .navigationTitle("Favorites")
             .task {
-                if isFirstLaunch {
-                    self.favoriteStories = await getFavorites()
-                    self.isFirstLaunch.toggle()
-
+                if vm.isFirstLaunch {
+                    await reloadData()
                 }
             }
             .onChange(of: favoritesStore.ids.count) {
                 Task {
-                    self.favoriteStories = await getFavorites()
-                    self.path = NavigationPath()
+                    await reloadData()
                 }
             }
         }
     }
 
-    func getFavorites() async -> [Story] {
-        let storiesIds = favoritesStore.ids
-
-        var stories = [Story]()
-
-        for storyId in storiesIds {
-            do {
-                let story: Story = try await NetworkManager.shared.getFromJson(from: "https://hacker-news.firebaseio.com/v0/item/\(storyId).json")
-                stories.append(story)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-
-        return stories
+    func reloadData() async {
+        vm.favoriteStories = await vm.getFavorites(ids: favoritesStore.ids)
+        vm.path = NavigationPath()
     }
-
 }
 
 #Preview {

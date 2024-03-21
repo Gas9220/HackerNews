@@ -13,6 +13,7 @@
 		6B145AFB2BAC35D100215C4A /* StoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B145AFA2BAC35D100215C4A /* StoryDetailView.swift */; };
 		6B145AFD2BAC367100215C4A /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B145AFC2BAC367100215C4A /* FavoritesStore.swift */; };
 		6B145AFF2BAC371C00215C4A /* FavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B145AFE2BAC371C00215C4A /* FavoritesListView.swift */; };
+		6B145B012BAC469700215C4A /* FavoriteListViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B145B002BAC469700215C4A /* FavoriteListViewVM.swift */; };
 		6B487AB02BA9E3550012656E /* HackerNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B487AAF2BA9E3550012656E /* HackerNewsApp.swift */; };
 		6B487AB42BA9E3570012656E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B487AB32BA9E3570012656E /* Assets.xcassets */; };
 		6B487AB72BA9E3570012656E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B487AB62BA9E3570012656E /* Preview Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		6B145AFA2BAC35D100215C4A /* StoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailView.swift; sourceTree = "<group>"; };
 		6B145AFC2BAC367100215C4A /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		6B145AFE2BAC371C00215C4A /* FavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListView.swift; sourceTree = "<group>"; };
+		6B145B002BAC469700215C4A /* FavoriteListViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewVM.swift; sourceTree = "<group>"; };
 		6B487AAC2BA9E3550012656E /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B487AAF2BA9E3550012656E /* HackerNewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsApp.swift; sourceTree = "<group>"; };
 		6B487AB32BA9E3570012656E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				6B145AF82BAC358500215C4A /* StoryRowView.swift */,
 				6B145AFA2BAC35D100215C4A /* StoryDetailView.swift */,
 				6B145AFE2BAC371C00215C4A /* FavoritesListView.swift */,
+				6B145B002BAC469700215C4A /* FavoriteListViewVM.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				6B487AB02BA9E3550012656E /* HackerNewsApp.swift in Sources */,
 				6B145AFB2BAC35D100215C4A /* StoryDetailView.swift in Sources */,
 				6B145AF92BAC358500215C4A /* StoryRowView.swift in Sources */,
+				6B145B012BAC469700215C4A /* FavoriteListViewVM.swift in Sources */,
 				6B145AFD2BAC367100215C4A /* FavoritesStore.swift in Sources */,
 				6B145AFF2BAC371C00215C4A /* FavoritesListView.swift in Sources */,
 				6B52A4E42BAC2F5700527408 /* Story.swift in Sources */,
