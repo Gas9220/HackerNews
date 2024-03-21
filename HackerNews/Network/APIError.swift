@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// An enumeration representing errors that can occur during API requests.
 enum APIError: String, Error {
     case invalidURL = "Invalid url"
     case unableToComplete = "Unable to complete the request."
