@@ -15,7 +15,7 @@ struct NewsListView: View {
             List {
                 ForEach(vm.stories.sorted(), id: \.self) { story in
                     NavigationLink(value: story) {
-                        Text(story.by)
+                        StoryRowView(story: story)
                     }
                 }
             }
