@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A class responsible for managing save/load favorite story IDs.
 class FavoritesStore: ObservableObject {
     @Published var ids: [Int] = []
 
@@ -18,12 +19,15 @@ class FavoritesStore: ObservableObject {
         }
     }
 
+    /// Returns the path to favorites.plist inside document directory. If the file is note present it will be created.
     var dataURL: URL {
         print(URL.documentsDirectory)
         return URL.documentsDirectory
             .appendingPathComponent("favorites.plist")
     }
 
+    /// Saves the current list of favorite IDs to the data file.
+    /// - Throws: A `FileError` if the operation encounters an error.
     func save() throws {
         let plistData = self.ids
 
@@ -38,6 +42,8 @@ class FavoritesStore: ObservableObject {
         }
     }
 
+    /// Loads the list of favorite IDs from the data file.
+    /// - Throws: A `FileError` if the operation encounters an error.
     func load() throws {
         guard let data = try? Data(contentsOf: dataURL) else {
             return
@@ -55,6 +61,8 @@ class FavoritesStore: ObservableObject {
         }
     }
 
+    /// Adds the specified ID to the list of favorite IDs and saves the changes.
+    /// - Parameter id: The ID of the story to add to favorites.
     func addToFavorites(id: Int) {
         self.ids.append(id)
 
@@ -65,6 +73,8 @@ class FavoritesStore: ObservableObject {
         }
     }
 
+    /// Removes the specified ID from the list of favorite IDs and saves the changes.
+    /// - Parameter id: The ID of the story to remove from favorites.
     func removeFromFavorites(id: Int) {
         if let itemToRemove = ids.firstIndex(of: id) {
             self.ids.remove(at: itemToRemove)
@@ -77,6 +87,7 @@ class FavoritesStore: ObservableObject {
         }
     }
 
+    /// An enumeration representing errors that can occur during save/load operations.
     enum FileError: Error {
         case loadFailure
         case saveFailure
