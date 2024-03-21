@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct StoryDetailView: View {
+    @EnvironmentObject var favoritesStore: FavoritesStore
+
     let story: Story
 
     var body: some View {
@@ -29,11 +31,27 @@ struct StoryDetailView: View {
         }
         .navigationTitle(story.by)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                let isFavorite = favoritesStore.ids.contains(story.id)
+
+                Button {
+                    if isFavorite {
+                        self.favoritesStore.removeFromFavorites(id: story.id)
+                    } else {
+                        self.favoritesStore.addToFavorites(id: story.id)
+                    }
+                } label: {
+                    Image(systemName: isFavorite ? "star.fill" : "star")
+                }
+            }
+        }
     }
 }
 
 #Preview {
     NavigationStack {
         StoryDetailView(story: Story.example)
+            .environmentObject(FavoritesStore())
     }
 }
