@@ -20,6 +20,12 @@ struct NewsListView: View {
                 }
             }
             .navigationTitle("Hacker News")
+            .refreshable {
+                vm.task?.cancel()
+                vm.task = Task {
+                    await vm.fetchStories()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("News Count: \(vm.stories.count)")
