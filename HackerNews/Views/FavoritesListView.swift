@@ -2,17 +2,36 @@
 //  FavoritesListView.swift
 //  HackerNews
 //
-//  Created by Gaspare Monte on 21/03/24.
+//  Created by Gaspare Monte on 20/03/24.
 //
 
 import SwiftUI
 
 struct FavoritesListView: View {
+    @EnvironmentObject var favoritesStore: FavoritesStore
+
+    @State private var favoriteStories: [Story] = []
+    @State private var path = NavigationPath()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack(path: $path) {
+            Group {
+                if favoriteStories.isEmpty {
+                    ContentUnavailableView(
+                        "No favorites",
+                        systemImage: "star.fill",
+                        description: Text("Add favorites from the news list.")
+                    )
+                }
+            }
+            .navigationTitle("Favorites")
+        }
     }
 }
 
 #Preview {
-    FavoritesListView()
+    NavigationStack {
+        FavoritesListView()
+            .environmentObject(FavoritesStore())
+    }
 }
