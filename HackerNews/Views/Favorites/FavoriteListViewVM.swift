@@ -14,6 +14,9 @@ extension FavoritesListView {
         @Published var isFirstLaunch: Bool = true
         @Published var path = NavigationPath()
 
+        /// Fetches favorite stories asynchronously from the Hacker News API.
+        /// - Parameter ids: The array of IDs of favorite stories.
+        /// - Returns: An array of `Story` objects representing the fetched favorite stories.
         func getFavorites(ids: [Int]) async -> [Story] {
             var stories = [Story]()
 
@@ -28,6 +31,5 @@ extension FavoritesListView {
 
             return stories
         }
-
     }
 }
