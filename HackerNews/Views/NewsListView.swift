@@ -13,10 +13,24 @@ struct NewsListView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(vm.stories.sorted(), id: \.self) { story in
+                ForEach(vm.stories, id: \.self) { story in
                     NavigationLink(value: story) {
                         StoryRowView(story: story)
                     }
+                }
+
+                if !vm.isFinished {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .foregroundColor(.black)
+                        .foregroundColor(.red)
+                        .onAppear {
+                            vm.task = Task {
+                                if !vm.storiesIds.isEmpty {
+                                    await vm.fetchStories()
+                                }
+                            }
+                        }
                 }
             }
             .navigationTitle("Hacker News")

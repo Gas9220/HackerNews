@@ -12,12 +12,16 @@ extension NewsListView {
         @Published var storiesIds: [Int] = []
         @Published var stories: [Story] = []
 
+        @Published var isFinished: Bool = false
+        @Published var isLoading = false
+
         @Published var task: Task<Void, Error>?
         /// The current endpoint used for fetching stories.
         @Published var endPoint: Endpoint = .topStories
 
         init() {
-           task = Task {
+            task = Task {
+                await getStoriesIds()
                 await fetchStories()
             }
         }
@@ -37,15 +41,22 @@ extension NewsListView {
         /// Fetches stories asynchronously.
         @MainActor
         func fetchStories() async {
-            do {
-                await getStoriesIds()
+            if stories.count == storiesIds.count && stories.count > 10 {
+                isFinished = true
+            } else {
+                if !isLoading {
+                    isLoading = true
 
-                var previousStoriesCount = stories.count
-                let newStoriesCount = previousStoriesCount + 10
+                    var previousStoriesCount = stories.count
+                    let newStoriesCount = previousStoriesCount + 10
+                    
+                    while previousStoriesCount < newStoriesCount {
+                        await getStory(id: self.storiesIds[previousStoriesCount])
+                        previousStoriesCount += 1
+                    }
 
-                while previousStoriesCount < newStoriesCount {
-                    await getStory(id: self.storiesIds[previousStoriesCount])
-                    previousStoriesCount += 1
+                    isLoading = false
+
                 }
             }
         }
