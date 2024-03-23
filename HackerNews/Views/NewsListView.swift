@@ -43,11 +43,9 @@ struct NewsListView: View {
                     await vm.fetchStories()
                 }
             }
-            .onChange(of: vm.endPoint) {
-                vm.stories = []
-                vm.task?.cancel()
+            .onChange(of: vm.endPoint) { oldValue, newValue in
                 vm.task = Task {
-                    await vm.fetchStories()
+                    await vm.switchStoriesList(from: oldValue, to: newValue)
                 }
             }
             .toolbar {

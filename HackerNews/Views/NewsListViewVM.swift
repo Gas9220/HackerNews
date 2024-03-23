@@ -19,10 +19,45 @@ extension NewsListView {
         /// The current endpoint used for fetching stories.
         @Published var endPoint: Endpoint = .topStories
 
+        var topStoriesCache: [Story] = []
+        var bestStoriesCache: [Story] = []
+        var newStoriesCache: [Story] = []
+
         init() {
             task = Task {
                 await getStoriesIds()
                 await fetchStories()
+            }
+        }
+
+        @MainActor
+        func switchStoriesList(from endpoint1: Endpoint, to endpoint2: Endpoint) async {
+            self.endPoint = endpoint2
+            await self.getStoriesIds()
+
+            if endpoint1 == .topStories {
+                self.topStoriesCache = stories
+            } else if endpoint1 == .bestStories {
+                self.bestStoriesCache = stories
+            } else {
+                self.newStoriesCache = stories
+            }
+
+            self.stories = selectStoriesArray()
+
+            if stories.isEmpty {
+                await fetchStories()
+            }
+        }
+
+        func selectStoriesArray() -> [Story] {
+            switch endPoint {
+            case .newStories:
+                return self.newStoriesCache
+            case .topStories:
+                return self.topStoriesCache
+            case .bestStories:
+                return self.bestStoriesCache
             }
         }
 
@@ -48,8 +83,8 @@ extension NewsListView {
                     isLoading = true
 
                     var previousStoriesCount = stories.count
-                    let newStoriesCount = previousStoriesCount + 10
-                    
+                    let newStoriesCount = stories.count + 10
+
                     while previousStoriesCount < newStoriesCount {
                         await getStory(id: self.storiesIds[previousStoriesCount])
                         previousStoriesCount += 1
