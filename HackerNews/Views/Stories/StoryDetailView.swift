@@ -12,6 +12,10 @@ struct StoryDetailView: View {
 
     let story: Story
 
+    var isFavorite: Bool {
+        favoritesStore.ids.contains(story.id)
+    }
+
     var body: some View {
         VStack {
             Text(story.title)
@@ -33,18 +37,20 @@ struct StoryDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                let isFavorite = favoritesStore.ids.contains(story.id)
-
                 Button {
-                    if isFavorite {
-                        self.favoritesStore.removeFromFavorites(id: story.id)
-                    } else {
-                        self.favoritesStore.addToFavorites(id: story.id)
-                    }
+                    toggleFavorite()
                 } label: {
                     Image(systemName: isFavorite ? "star.fill" : "star")
                 }
             }
+        }
+    }
+
+    func toggleFavorite() {
+        if isFavorite {
+            self.favoritesStore.removeFromFavorites(id: story.id)
+        } else {
+            self.favoritesStore.addToFavorites(id: story.id)
         }
     }
 }
