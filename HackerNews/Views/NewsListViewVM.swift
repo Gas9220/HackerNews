@@ -30,6 +30,10 @@ extension NewsListView {
             }
         }
 
+        /// Switches the current stories list from one endpoint to another.
+        /// - Parameters:
+        ///    - endpoint1: The original endpoin.
+        ///    - endpoint2: The new endpoint.
         @MainActor
         func switchStoriesList(from endpoint1: Endpoint, to endpoint2: Endpoint) async {
             self.endPoint = endpoint2
